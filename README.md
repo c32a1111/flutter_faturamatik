@@ -68,7 +68,7 @@ codesign --force --deep --sign - Pods/FaturamatikVerify/FaturamatikVerify.xcfram
 
 otool -L Pods/FaturamatikVerify/FaturamatikVerify.xcframework/ios-arm64/FaturamatikVerify.framework/FaturamatikVerify
 
-### IDCapture module
+## IDCapture module
 Get the id capture module from the main `FaturamatikVerify` [instance which you have previously initialized.]
 
 ```dart
@@ -104,7 +104,7 @@ onPressed: () async {
 After getting the image data from the SDK, you can use it with `Image.memory()`.
 
 
-#### Auto selfie usage
+## Auto selfie usage
 Get the auto selfie module from the main `AmaniSDK` [instance which you have previously initialized.]
 ```dart
 final FlutterFaturamatik _faturamatikSDK = FlutterFaturamatik();
