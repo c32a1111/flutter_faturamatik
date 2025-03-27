@@ -36,34 +36,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: const Text('ID Capture')),
                 OutlinedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/selfie');
-                    },
-                    child: const Text('Selfie')),
-                OutlinedButton(
-                    onPressed: () {
                       Navigator.pushNamed(context, '/auto-selfie');
                     },
                     child: const Text('Auto Selfie')),
-                OutlinedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/pose-estimation');
-                    },
-                    child: const Text('Pose Estimation')),
-                OutlinedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/nfc');
-                    },
-                    child: const Text('NFC')),
-                OutlinedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/bio-login');
-                    },
-                    child: const Text("BioLogin")),
-                OutlinedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/document-capture');
-                    },
-                    child: const Text("Document Capture"))
               ]),
         ));
   }

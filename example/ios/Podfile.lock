@@ -1,9 +1,9 @@
 PODS:
-  - FaturamatikVerify (1.0.5):
+  - FaturamatikVerify (1.0.0):
     - OpenSSL-Universal
   - Flutter (1.0.0)
-  - flutter_faturamatik (1.0.5):
-    - FaturamatikVerify (~> 1.0.5)
+  - flutter_faturamatik (1.0.0):
+    - FaturamatikVerify (~> 1.0.0)
     - Flutter
   - integration_test (0.0.1):
     - Flutter
@@ -29,12 +29,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/integration_test/ios"
 
 SPEC CHECKSUMS:
-  FaturamatikVerify: 585037644892d9c0ed6a44dd339edea4bcdfa3bf
+  FaturamatikVerify: e749bcff84a8e32c61715494f53f591db9d41ec4
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  flutter_faturamatik: d23a96f5347dccd992078caf530e2737af129718
+  flutter_faturamatik: ce279efa609eae14dc7d7bd54d72dc7f728f457e
   integration_test: 252f60fa39af5e17c3aa9899d35d908a0721b573
   OpenSSL-Universal: d776ce24dab24323e6995dfb17c64d598885d05c
 
-PODFILE CHECKSUM: 9074641b697d6eeca4fd21a14d9ad3c5f7577906
+PODFILE CHECKSUM: 96693188a13f031ee0feccd35560fbaa14ba3bfe
 
 COCOAPODS: 1.16.2

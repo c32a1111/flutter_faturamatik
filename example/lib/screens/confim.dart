@@ -42,19 +42,12 @@ class ConfirmScreen extends StatelessWidget {
                   onPressed: (() {
                     if (args.source == "idCapture" &&
                         args.idCaptureBothSidesTaken == true &&
-                        args.idCaptureNFCCompleted == true) {
+                        args.idCaptureNFCCompleted == false) {
                       _idCapture.upload().then((isSuccess) {
                         if (isSuccess) {
                           Navigator.pushReplacementNamed(context, '/');
                         }
                       });
-                    } else if (args.source == "idCapture" &&
-                        args.idCaptureBothSidesTaken == true &&
-                        args.idCaptureNFCCompleted == false) {
-                      if (Platform.isIOS) {
-                    
-                      } else if (Platform.isAndroid) {
-                      
                     } else if (args.source == "idCapture" &&
                         args.idCaptureBothSidesTaken == false) {
                       _idCapture.start(IdSide.back).then((imageData) {
@@ -78,7 +71,7 @@ class ConfirmScreen extends StatelessWidget {
                         }
                       });
                     } 
-                  }}),
+                  }),
                   child: const Text("Confirm"))
             ],
           )
