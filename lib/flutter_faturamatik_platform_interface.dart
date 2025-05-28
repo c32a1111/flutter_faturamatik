@@ -63,22 +63,6 @@ abstract class FlutterFaturamatikPlatform extends PlatformInterface {
         'setIDCaptureHologramDetection() has not been implemented.');
   }
 
-  // AutoSelfie
-  Future<dynamic> startAutoSelfie({
-    required IOSAutoSelfieSettings iosSettings,
-    required AndroidAutoSelfieSettings androidSettings,
-  }) {
-    throw UnimplementedError('startAutoSelfie() has not been implemented.');
-  }
-
-  Future<bool> uploadAutoSelfie() {
-    throw UnimplementedError('setSelfieType() has not been implemented.');
-  }
-
-  Future<void> setAutoSelfieType({required String type}) {
-    throw UnimplementedError('setAutoSelfieType() has not been implemented.');
-  }
-
   Future<bool> setDelegates() {
     throw UnimplementedError('setDelegates() has not been implemented.');
   }

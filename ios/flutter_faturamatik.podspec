@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_faturamatik'
-  s.version          = '1.0.6'
+  s.version          = '1.0.7'
   s.summary          = 'Faturamatik SDK Flutter bindings for ios and android'
   s.description      = <<-DESC
   Faturamatik SDK Flutter bindings for ios and android
@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.source_files = 'Classes/**/*'
   s.resources = 'Assets/**/*'
   s.dependency 'Flutter'
-  s.dependency 'FaturamatikVerify', '~> 1.0.6'
+  s.dependency 'FaturamatikVerify', '~> 1.0.7'
   s.platform = :ios, '13.0'
 
   # Flutter.framework does not contain a i386 slice.

@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_faturamatik/flutter_faturamatik_method_channel.dart';
-import 'package:flutter_faturamatik/modules/auto_selfie.dart';
 import 'package:flutter_faturamatik/modules/nfc_capture_ios.dart';
 import 'package:flutter_faturamatik/modules/id_capture.dart';
 import 'package:flutter_faturamatik/modules/pose_estimation.dart';
 import 'flutter_faturamatik_platform_interface.dart';
+
 
 class FlutterFaturamatik {
 final MethodChannelFlutterFaturamatik _methodChannel = MethodChannelFlutterFaturamatik();
@@ -21,10 +21,6 @@ final MethodChannelFlutterFaturamatik _methodChannel = MethodChannelFlutterFatur
     return PoseEstimation(_methodChannel);
   }
 
-  /// returns [AutoSelfie] module
-  AutoSelfie getAutoSelfie() {
-    return AutoSelfie(_methodChannel);
-  }
 
    /// Returns [IOSNFCCapture] module
   IOSNFCCapture getIOSNFCCapture() {

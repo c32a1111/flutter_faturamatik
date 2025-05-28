@@ -3,6 +3,7 @@ import 'package:flutter_faturamatik/flutter_faturamatik.dart';
 import 'package:flutter_faturamatik/modules/id_capture.dart';
 import 'package:flutter_faturamatik/modules/nfc_capture_ios.dart';
 import 'package:flutter_faturamatik/common/models/nvi_data.dart';
+import 'package:flutter_faturamatik/common/models/ios/nfc_info_messages.dart';
 
 class IOSNFC extends StatefulWidget {
   const IOSNFC({Key? key}) : super(key: key);
@@ -23,6 +24,18 @@ class IOSNFCState extends State<IOSNFC> {
 
   Future<void> nfcModuleSetType() async {
     await _nfcCapture.setType("TUR_ID_1");
+    await _nfcCapture.setNFCInfoMessage(
+      NFCInfoMessages(
+        tagError: "Kart okunamadı. Lütfen tekrar deneyin.",
+        connectionError: "Bağlantı hatası oluştu.",
+        successMessage: "Tebrikler! Başarıyla tamamlandı.",
+        moreThanOneTag: "Çoklu kart tespit edildi",
+        invalidMrzKey: "Geçersiz MRZ anahtarı",
+        defaultMessage: "Bir hata oluştu.",
+        responseError: "Hata oluştu.",
+        requestPresentPass: "yarakiye",
+      ),
+      );
   
   }
 

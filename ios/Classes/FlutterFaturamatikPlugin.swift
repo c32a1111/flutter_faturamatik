@@ -135,22 +135,15 @@ public class FlutterFaturamatikPlugin: NSObject, FlutterPlugin {
     case "iOSuploadNFC":
         let nfc = NFC()
         nfc.upload(result: result)
-   
-    // AutoSelfie
-    case "startAutoSelfie":
-      let autoSelfie = AutoSelfie()
-      let decoder = JSONDecoder()
-      let iosArgs = arguments?["iosSettings"] as! String
-      let autoSelfieSettings = try! decoder.decode(AutoSelfieSettings.self, from: Data(iosArgs.utf8))
-      autoSelfie.start(settings: autoSelfieSettings, result: result)
-    case "setAutoSelfieType":
-      let autoSelfie = AutoSelfie()
-      let type = arguments?["type"] as! String
-      autoSelfie.setType(type: type, result: result)
-    case "uploadAutoSelfie":
-      let autoSelfie = AutoSelfie()
-      autoSelfie.upload(result: result)
-   
+    case "setNFCInfoMessages":
+        if let args = call.arguments as? [String: String] {
+            let messageStruct = NFCInfoMessages(dict: args)
+            let nfc = NFC()
+            nfc.setNFCInfoMessages(messages: messageStruct, result: result)
+        } else {
+            result(FlutterError(code: "INVALID_ARGUMENTS", message: "Expected a map of string values", details: nil))
+        }
+
 
     default:
       result(FlutterMethodNotImplemented)

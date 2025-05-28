@@ -3,6 +3,7 @@ import FaturamatikVerify
 
 class NFC {
   private let module = Faturamatik.sharedInstance.scanNFC()
+  private let nfcUtil = Faturamatik.sharedInstance.setNFCUtil()
   private var moduleView: UIView?
 
   // func start(imageData: FlutterStandardTypedData, result: @escaping FlutterResult) {
@@ -54,6 +55,12 @@ class NFC {
     module.upload { isSuccess in
       result(isSuccess)
     }
+  }
+
+  func setNFCInfoMessages(messages: NFCInfoMessages, result: @escaping FlutterResult) {
+        let convertedMessages = messages.toNFCMessageMap()
+        nfcUtil.setNFCInfoMessage(infoMessages: convertedMessages)
+        result(nil)
   }
   
 }

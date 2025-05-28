@@ -9,6 +9,7 @@ import 'package:flutter_faturamatik/common/models/android/auto_selfie_settings.d
 import 'package:flutter_faturamatik/common/models/ios/auto_selfie_settings.dart';
 import 'flutter_faturamatik_platform_interface.dart';
 import 'package:flutter_faturamatik/common/models/ios/pose_estimation_settings.dart';
+import 'package:flutter_faturamatik/common/models/ios/nfc_info_messages.dart';
 
 /// An implementation of [FlutterFaturamatikPlatform] that uses method channels.
 class MethodChannelFlutterFaturamatik extends FlutterFaturamatikPlatform {
@@ -155,6 +156,15 @@ Future<Map<String, dynamic>> iOSNFCCaptureWithNviData(NviModel nviModel) async {
       rethrow;
     }
   }
+  
+  @override
+  Future<void> setNFCInfoMessage(NFCInfoMessages messages) async {
+  try {
+    await methodChannel.invokeMethod('setNFCInfoMessages', messages.toMap());
+  } catch (err) {
+    rethrow;
+  }
+}
 
   @override
     Future<String?> getMrzRequest() async {
@@ -177,43 +187,6 @@ Future<Map<String, dynamic>> iOSNFCCaptureWithNviData(NviModel nviModel) async {
     } else {
       print("Result nil geldi");
     }
-    } catch (err) {
-      rethrow;
-    }
-  }
-
-  // AutoSelfie
-  @override
-  Future<dynamic> startAutoSelfie(
-      {required AndroidAutoSelfieSettings androidSettings,
-      required IOSAutoSelfieSettings iosSettings}) async {
-    final String androidSettingsJSON = jsonEncode(androidSettings);
-    final String iosSettingsJSON = jsonEncode(iosSettings);
-    try {
-      final imgData = await methodChannel.invokeMethod('startAutoSelfie', {
-        "iosSettings": iosSettingsJSON,
-        "androidSettings": androidSettingsJSON
-      });
-      return imgData;
-    } catch (err) {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<void> setAutoSelfieType({required String type}) async {
-    try {
-      await methodChannel.invokeMethod('setAutoSelfieType', {"type": type});
-    } catch (err) {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<bool> uploadAutoSelfie() async {
-    try {
-      final bool status = await methodChannel.invokeMethod('uploadAutoSelfie');
-      return status;
     } catch (err) {
       rethrow;
     }

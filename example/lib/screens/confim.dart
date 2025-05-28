@@ -23,7 +23,6 @@ class _ConfirmScreen extends State<ConfirmScreenState> {
   StreamSubscription<dynamic>? _eventSubscription;
   // Modules.
   final _idCapture = FlutterFaturamatik().getIDCapture();
-  final _autoSelfie = FlutterFaturamatik().getAutoSelfie();
   final _poseEstimation = FlutterFaturamatik().getPoseEstimation();
 
   String _error = "No Error";
@@ -155,11 +154,6 @@ class _ConfirmScreen extends State<ConfirmScreenState> {
                           }
                         }
                     });
-                  } else if (args.source == "autoSelfie") {
-                    bool isSuccess = await _autoSelfie.upload();
-                    if (isSuccess) {
-                      Navigator.pushReplacementNamed(context, '/');
-                    }
                   } else if (args.source == "poseEstimation") {
                     bool isSuccess = await _poseEstimation.upload();
                     if (isSuccess) {

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter_faturamatik/common/models/nvi_data.dart';
 import 'package:flutter_faturamatik/flutter_faturamatik_method_channel.dart';
+import 'package:flutter_faturamatik/common/models/ios/nfc_info_messages.dart';
 
 class IOSNFCCapture {
   final MethodChannelFlutterFaturamatik _methodChannel;
@@ -48,4 +49,12 @@ class IOSNFCCapture {
   Future<void> setType(String type) async {
     await _methodChannel.iosSetNFCType(type);
   }
+
+  Future<void> setNFCInfoMessage(NFCInfoMessages messages) async {
+  try {
+    await _methodChannel.setNFCInfoMessage(messages);
+  } catch (err) {
+    rethrow;
+  }
+}
 }

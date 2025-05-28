@@ -44,11 +44,6 @@ Future<void> initDelegates() async {
                     },
                     child: const Text('ID Capture')),
                 OutlinedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/auto-selfie');
-                    },
-                    child: const Text('Auto Selfie')),
-                OutlinedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/pose-estimation');
                 },
