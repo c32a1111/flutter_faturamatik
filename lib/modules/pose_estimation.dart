@@ -26,14 +26,18 @@ class PoseEstimation {
     }
   }
 
-  Future<bool> upload() async {
-    try {
-      final bool isDone = await _methodChannel.uploadPoseEstimation();
-      return isDone;
-    } catch (err) {
-      rethrow;
-    }
+Future<Map<String, dynamic>> upload() async {
+  try {
+    final Map<dynamic, dynamic> response = await _methodChannel.uploadPoseEstimation();
+
+    return {
+      "status": response['status'] == true,
+      "message": response['message'] ?? '',
+    };
+  } catch (err) {
+    rethrow;
   }
+}
 
   Future<void> setType(String type) async {
     await _methodChannel.setPoseEstimationType(type);

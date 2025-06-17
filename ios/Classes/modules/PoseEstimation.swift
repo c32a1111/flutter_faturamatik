@@ -107,8 +107,13 @@ class PoseEstimation {
   }
 
   public func upload(result: @escaping FlutterResult) {
-    module.upload { isSuccess in
-      result(isSuccess)
+     module.upload { isSuccess, extra in
+      let resultDict: [String: Any?] = [
+        "status": isSuccess,
+        "message": extra
+      ]
+      debugPrint("pose est upload func result: \(resultDict)")
+    result(resultDict)
     }
   }
   

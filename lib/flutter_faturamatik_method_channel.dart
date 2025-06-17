@@ -28,12 +28,13 @@ class MethodChannelFlutterFaturamatik extends FlutterFaturamatikPlatform {
   }
 
   @override
-  Future<bool> uploadIDCapture() async {
+  Future<Map<String, dynamic>> uploadIDCapture() async {
     try {
-      final bool isDone = await methodChannel.invokeMethod('uploadIDCapture');
-      return isDone;
+    final Map result =
+        await methodChannel.invokeMethod('uploadIDCapture');
+    return Map<String, dynamic>.from(result);
     } catch (err) {
-      rethrow;
+    rethrow;
     }
   }
 
@@ -139,12 +140,13 @@ Future<Map<String, dynamic>> iOSNFCCaptureWithNviData(NviModel nviModel) async {
 }
 
   @override
-  Future<bool> iosUploadNFCCapture() async {
+  Future<Map<String, dynamic>> iosUploadNFCCapture() async {
     try {
-      final bool isSuccess = await methodChannel.invokeMethod('iOSuploadNFC');
-      return isSuccess;
+    final Map result =
+        await methodChannel.invokeMethod('iOSuploadNFC');
+    return Map<String, dynamic>.from(result);
     } catch (err) {
-      rethrow;
+    rethrow;
     }
   }
 
@@ -221,18 +223,27 @@ Future<Map<String, dynamic>> iOSNFCCaptureWithNviData(NviModel nviModel) async {
     }
   }
 
-
-
   @override
-  Future<bool> uploadPoseEstimation() async {
+  Future<Map<String, dynamic>> uploadPoseEstimation() async {
     try {
-      final bool isDone =
-          await methodChannel.invokeMethod('uploadPoseEstimation');
-      return isDone;
+    final Map result =
+        await methodChannel.invokeMethod('uploadPoseEstimation');
+    return Map<String, dynamic>.from(result);
     } catch (err) {
-      rethrow;
+    rethrow;
     }
   }
+
+  // @override
+  // Future<bool> uploadPoseEstimation() async {
+  //   try {
+  //     final bool isDone =
+  //         await methodChannel.invokeMethod('uploadPoseEstimation');
+  //     return isDone;
+  //   } catch (err) {
+  //     rethrow;
+  //   }
+  // }
 
   @override
   Future<void> setPoseEstimationType(String type) async {

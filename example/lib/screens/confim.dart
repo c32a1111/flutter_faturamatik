@@ -30,17 +30,19 @@ class _ConfirmScreen extends State<ConfirmScreenState> {
   String? mrzDocId = "";
   int mrzReqCount = 0;
   bool _isLoading = false;
+  
+  
 
-   Future<String?> startMrzRequest() async {
-    final String? mrzDocId = await _idCapture.getMrzRequest();
-    return mrzDocId;
-  }
+Future<String?> startMrzRequest() async {
+  final String? mrzDocId = await _idCapture.getMrzRequest();
+  return mrzDocId;
+}
 
   @override 
   void initState() {
     super.initState();
       // MRZ listener başlatmayı frame sonrası çalıştır
-    
+
     startListeningForMrzResult();
   
 
@@ -86,7 +88,11 @@ class _ConfirmScreen extends State<ConfirmScreenState> {
                   if (args.source == "idCapture" &&
                       args.idCaptureBothSidesTaken == true &&
                       args.idCaptureNFCCompleted == true) {
-                    bool isSuccess = await _idCapture.upload();
+                    
+                      final result = await _idCapture.upload();
+            
+                      final bool isSuccess = result['status'];
+                      final String message = result['message'];
                     if (isSuccess) {
                       Navigator.pushReplacementNamed(context, '/');
                     }
@@ -96,11 +102,15 @@ class _ConfirmScreen extends State<ConfirmScreenState> {
                    if (Platform.isIOS) {
                       await startMrzRequest();
                       Map<String, dynamic> result = await startListeningForMrzResult();
-
-                      if (result.isNotEmpty) {
+                      debugPrint("listeningMRZInfoDelegate result: $result, and mrzResult: $mrzResult");
+                      if (mrzResult.isNotEmpty) {
                         bool isDone = await _idCapture.iosStartNFC(result);
                         if (isDone) {
-                          bool isSuccess = await _idCapture.upload();
+                     
+                          final result = await _idCapture.upload();
+                      
+                          final bool isSuccess = result['status'];
+                          final String message = result['message'];
                           if (isSuccess) {
                             Navigator.pushNamed(
                               context,
@@ -129,13 +139,17 @@ class _ConfirmScreen extends State<ConfirmScreenState> {
                             idCaptureNFCCompleted: false))
                         .then((_) async {
                       if (Platform.isIOS) {
-                          await startMrzRequest();
+                          
                           Map<String, dynamic> result = await startListeningForMrzResult();
-
-                          if (result.isNotEmpty) {
+                          debugPrint("listeningMRZInfoDelegate result: $result, and mrzResult: $mrzResult");
+                          if (mrzResult.isNotEmpty) {
                             bool isDone = await _idCapture.iosStartNFC(result);
                             if (isDone) {
-                              bool isSuccess = await _idCapture.upload();
+                        
+                              final result = await _idCapture.upload();
+                              print("confirm ekranı result değeriii $result");
+                              final bool isSuccess = result['status'];
+                              final String message = result['message'];
                               if (isSuccess) {
                                 Navigator.pushNamed(
                                   context,
@@ -155,10 +169,17 @@ class _ConfirmScreen extends State<ConfirmScreenState> {
                         }
                     });
                   } else if (args.source == "poseEstimation") {
-                    bool isSuccess = await _poseEstimation.upload();
+                    final result = await _poseEstimation.upload();
+                    print("confirm ekranı result değeriii $result");
+                    final bool isSuccess = result['status'];
+                    final String message = result['message'];
+
                     if (isSuccess) {
                       Navigator.pushReplacementNamed(context, '/');
+                    } else {
+                      print("Upload failed: $message");
                     }
+                    
                   }}),
                 child: const Text("Confirm"))
           ],

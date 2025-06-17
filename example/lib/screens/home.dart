@@ -10,7 +10,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-Future<void> initDelegates() async {
+  final _idCapture = FlutterFaturamatik().getIDCapture();
+
+  Future<void> initDelegates() async {
   FlutterFaturamatik().setDelegates().then((_) {
 
   });
@@ -53,7 +55,20 @@ Future<void> initDelegates() async {
                 onPressed: () {
                   Navigator.pushNamed(context, '/nfc');
                 },
+                
                 child: const Text('NFC')),
+
+                OutlinedButton(
+                onPressed: () async {
+                  final result = await _idCapture.upload();
+            
+                  final bool isSuccess = result['status'];
+                  final String message = result['message'];
+
+                  print("home screen upload button func: $result");
+                },
+                
+                child: const Text('Upload')),
               ]),
         ));
   }

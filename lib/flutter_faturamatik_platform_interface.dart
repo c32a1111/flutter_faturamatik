@@ -40,7 +40,7 @@ abstract class FlutterFaturamatikPlatform extends PlatformInterface {
         'iOSStartIDCaptureNFC() has not been implemented.');
   }
 
-  Future<bool> uploadIDCapture() {
+  Future<Map<String, dynamic>> uploadIDCapture() {
     throw UnimplementedError('uploadIDCapture() has not been implemented.');
   }
 
@@ -73,8 +73,11 @@ abstract class FlutterFaturamatikPlatform extends PlatformInterface {
     throw UnimplementedError('startPoseEstimation() has not been implemented.');
   }
 
-  Future<bool> uploadPoseEstimation() {
-    throw UnimplementedError('uploadAutoSelfie() has not been implemented');
+  // Future<bool> uploadPoseEstimation() {
+  //   throw UnimplementedError('uploadAutoSelfie() has not been implemented');
+  // }
+  Future<Map<String, dynamic>> uploadPoseEstimation() {
+  throw UnimplementedError('uploadPoseEstimation() has not been implemented');
   }
 
   Future<void> setPoseEstimationType(String type) {

@@ -37,14 +37,19 @@ class IOSNFCCapture {
     }
   }
 
-  Future<bool> upload() async {
-    try {
-      final bool isDone = await _methodChannel.iosUploadNFCCapture();
-      return isDone;
-    } catch (err) {
-      rethrow;
-    }
+ 
+  Future<Map<String, dynamic>> upload() async {
+  try {
+    final Map<dynamic, dynamic> response = await _methodChannel.iosUploadNFCCapture();
+
+    return {
+      "status": response['status'] == true,
+      "message": response['message'] ?? '',
+    };
+  } catch (err) {
+    rethrow;
   }
+}
 
   Future<void> setType(String type) async {
     await _methodChannel.iosSetNFCType(type);

@@ -29,15 +29,20 @@ class IdCapture {
     }
   }
 
- 
-  Future<bool> upload() async {
+  Future<Map<String, dynamic>> upload() async {
     try {
-      final bool isDone = await _methodChannel.uploadIDCapture();
-      return isDone;
+      final Map<dynamic, dynamic> response = await _methodChannel.uploadIDCapture();
+
+      return {
+        "status": response['status'] == true,
+        "message": response['message'] ?? '',
+      };
     } catch (err) {
       rethrow;
     }
   }
+ 
+ 
 
  Future<bool> iosStartNFC(Map<String, dynamic> mrzResult) async {
   
