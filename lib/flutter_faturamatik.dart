@@ -39,6 +39,16 @@ final MethodChannelFlutterFaturamatik _methodChannel = MethodChannelFlutterFatur
     }
   }
 
+  Future<dynamic> setEnvironment(String type) async {
+    try {
+     var envType = await _methodChannel.setEnvironment(type);
+     return envType;
+    }catch( err) {
+      rethrow;
+    }
+   
+  }
+
  
 
   Stream<dynamic> getDelegateStream() {

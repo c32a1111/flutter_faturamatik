@@ -205,6 +205,16 @@ Future<Map<String, dynamic>> iOSNFCCaptureWithNviData(NviModel nviModel) async {
     }
   }
 
+  @override
+  Future<void> setEnvironment(String type) async {
+    try {
+      final void isSetEnvironment = await methodChannel.invokeListMethod('setEnvironment', {"type":type });
+      return isSetEnvironment;
+    } catch(err) {
+      rethrow;
+    }
+  }
+
   // Pose Estimation
   @override
   Future startPoseEstimation(

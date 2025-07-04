@@ -143,7 +143,9 @@ public class FlutterFaturamatikPlugin: NSObject, FlutterPlugin {
         } else {
             result(FlutterError(code: "INVALID_ARGUMENTS", message: "Expected a map of string values", details: nil))
         }
-
+    case "setEnvironment":
+      let type = arguments?["type"] as! String
+      setEnvironment(args: type)
 
     default:
       result(FlutterMethodNotImplemented)
@@ -155,7 +157,12 @@ public class FlutterFaturamatikPlugin: NSObject, FlutterPlugin {
   private func setDelegates() {
     Faturamatik.sharedInstance.setDelegate(delegate: FlutterFaturamatikPlugin.eventHandler)
     Faturamatik.sharedInstance.setMRZDelegate(delegate: FlutterFaturamatikPlugin.eventHandler)
-    debugPrint("plugin tarafında setDelegates methodu çalıştı ve mrz delegate setlendi.")
+   
+  }
+
+  private func setEnvironment(args: String?) {
+    guard let envType = args else { return }
+    Faturamatik.sharedInstance.setEnvironment(environment: envType)
   }
 
   

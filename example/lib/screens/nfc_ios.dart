@@ -33,7 +33,7 @@ class IOSNFCState extends State<IOSNFC> {
         invalidMrzKey: "Geçersiz MRZ anahtarı",
         defaultMessage: "Bir hata oluştu.",
         responseError: "Hata oluştu.",
-        requestPresentPass: "yarakiye",
+        requestPresentPass: "Kimliği temas ettirin.",
       ),
       );
   

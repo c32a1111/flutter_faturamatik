@@ -44,7 +44,7 @@ class SDKView: UIView {
 
       backButton.translatesAutoresizingMaskIntoConstraints = false
       NSLayoutConstraint.activate([
-        backButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+        backButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 36),
         backButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         backButton.widthAnchor.constraint(equalToConstant: 60),
         backButton.heightAnchor.constraint(equalToConstant: 60)

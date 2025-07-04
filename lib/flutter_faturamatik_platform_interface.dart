@@ -67,6 +67,10 @@ abstract class FlutterFaturamatikPlatform extends PlatformInterface {
     throw UnimplementedError('setDelegates() has not been implemented.');
   }
 
+  Future<void> setEnvironment(String type) {
+    throw UnimplementedError('setDelegates() has not been implemented.');
+  }
+
   // PoseEstimation
   Future<dynamic> startPoseEstimation(
       {required IOSPoseEstimationSettings iosPoseEstimationSettings}) {

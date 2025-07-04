@@ -13,9 +13,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final _idCapture = FlutterFaturamatik().getIDCapture();
 
   Future<void> initDelegates() async {
-  FlutterFaturamatik().setDelegates().then((_) {
-
-  });
+  FlutterFaturamatik().setDelegates();
+  FlutterFaturamatik().setEnvironment("deneme");
     
     await for (final delegateEvent in FlutterFaturamatik().getDelegateStream()) {
       print("delegate event recievedDDDD");
