@@ -30,21 +30,21 @@ PODS:
   - DKPhotoGallery/Resource (0.0.19):
     - SDWebImage
     - SwiftyGif
-  - FaturamatikVerify (1.0.3):
+  - FaturamatikVerify (1.0.9):
     - OpenSSL-Universal
   - file_picker (0.0.1):
     - DKImagePickerController/PhotoGallery
     - Flutter
   - Flutter (1.0.0)
-  - flutter_faturamatik (1.0.3):
-    - FaturamatikVerify (~> 1.0.3)
+  - flutter_faturamatik (1.0.9):
+    - FaturamatikVerify (~> 1.0.9)
     - Flutter
   - integration_test (0.0.1):
     - Flutter
   - OpenSSL-Universal (3.3.3001)
-  - SDWebImage (5.21.0):
-    - SDWebImage/Core (= 5.21.0)
-  - SDWebImage/Core (5.21.0)
+  - SDWebImage (5.21.1):
+    - SDWebImage/Core (= 5.21.1)
+  - SDWebImage/Core (5.21.1)
   - SwiftyGif (5.4.5)
 
 DEPENDENCIES:
@@ -76,13 +76,13 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   DKImagePickerController: 946cec48c7873164274ecc4624d19e3da4c1ef3c
   DKPhotoGallery: b3834fecb755ee09a593d7c9e389d8b5d6deed60
-  FaturamatikVerify: e96d5bf9813c1d5ebcf2e502679b38db6ccc17b2
+  FaturamatikVerify: a7cac1e823a70d1774f87e9fd63d2e042b868e30
   file_picker: b159e0c068aef54932bb15dc9fd1571818edaf49
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  flutter_faturamatik: 0941caf2f4286548195a7692bef064fc4fd31e3b
+  flutter_faturamatik: 318c7ee2d9cd7773a92c788e733f8aa75cb19d34
   integration_test: 252f60fa39af5e17c3aa9899d35d908a0721b573
   OpenSSL-Universal: 6082b0bf950e5636fe0d78def171184e2b3899c2
-  SDWebImage: f84b0feeb08d2d11e6a9b843cb06d75ebf5b8868
+  SDWebImage: f29024626962457f3470184232766516dee8dfea
   SwiftyGif: 706c60cf65fa2bc5ee0313beece843c8eb8194d4
 
 PODFILE CHECKSUM: 0385690102c1f0bd0e030087fd9ac14e337d8e00
