@@ -11,6 +11,11 @@ class FlutterFaturamatik {
 final MethodChannelFlutterFaturamatik _methodChannel = MethodChannelFlutterFaturamatik();
   final delegateEventChannel = const EventChannel("faturamatiksdk_delegate_channel");
 
+  // Android Kyc process
+  Future<bool> startKYC() async {
+    return _methodChannel.startKYC();
+  }
+
   /// returns [IdCapture] module
   IdCapture getIDCapture() {
     return IdCapture(_methodChannel);

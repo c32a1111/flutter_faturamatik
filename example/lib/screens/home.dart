@@ -66,8 +66,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   print("home screen upload button func: $result");
                 },
-                
                 child: const Text('Upload')),
+                OutlinedButton(
+                  onPressed: () async {
+                    final started = await FlutterFaturamatik().startKYC();
+                    print("startKYC called, started: $started");
+                  },
+                  child: const Text('Android KYC Start'),
+                ),
               ]),
         ));
   }

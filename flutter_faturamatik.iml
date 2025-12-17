@@ -28,7 +28,6 @@
       <excludeFolder url="file://$MODULE_DIR$/example/ios/.symlinks/plugins/integration_test/integration_test_macos/build" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Dart Packages" level="project" />
     <orderEntry type="library" name="Dart SDK" level="project" />
     <orderEntry type="library" name="Flutter Plugins" level="project" />
   </component>

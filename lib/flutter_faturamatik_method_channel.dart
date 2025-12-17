@@ -16,6 +16,19 @@ class MethodChannelFlutterFaturamatik extends FlutterFaturamatikPlatform {
 // The method channel used to interact with the native platform.
   final methodChannel = const MethodChannel('faturamatiksdk_method_channel');
 
+
+
+  @override
+  Future<bool> startKYC() async {
+  try {
+    print("START KYC FUNC İCİ METHOD CHANNEL");
+    final bool started = await methodChannel.invokeMethod('startKYC');
+    return started;
+  } catch (err) {
+    rethrow;
+    }
+  }
+
   @override
   Future<dynamic> startIDCapture(int stepID) async {
     try {

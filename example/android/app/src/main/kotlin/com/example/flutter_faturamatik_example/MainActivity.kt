@@ -1,4 +1,4 @@
-package com.example.flutter_faturamatik_example
+package ai.faturamatik.flutter_example
 
 import io.flutter.embedding.android.FlutterActivity
 

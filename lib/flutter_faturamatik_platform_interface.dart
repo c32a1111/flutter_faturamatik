@@ -28,7 +28,10 @@ abstract class FlutterFaturamatikPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  
+  // Android Kyc Process
+  Future<bool> startKYC() {
+    throw UnimplementedError('startKYC() has not been implemented.');
+  }
 
   // IDCapture
   Future<dynamic> startIDCapture(int stepID) {
