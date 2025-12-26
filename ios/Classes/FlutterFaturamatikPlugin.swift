@@ -45,13 +45,13 @@ public class FlutterFaturamatikPlugin: NSObject, FlutterPlugin {
            let birthDate = arguments["birthDate"] as? String,
            let expireDate = arguments["expireDate"] as? String,
            let documentNo = arguments["documentNo"] as? String {
-            print("Plugin tarafından NFC için isteğe çıkılacak: \(arguments)")
+            
             
             let idCapture = IdCapture()
             Task {
                 let nviModel = NviModel(documentNo: documentNo, dateOfBirth: birthDate, dateOfExpire: expireDate)
                 let isDone = await idCapture.startNFC(nvi: nviModel)
-                print("PLUGİN TARAFINDA startNFC fonksiyonundan dönen BOOLEAN DEGERI: \(isDone)")
+                
                 result(isDone)
             }
         } else {

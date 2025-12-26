@@ -51,7 +51,6 @@ class IdCapture {
     if (!Platform.isIOS) return false;
     if (mrzResult.isEmpty != true) {
     
-      print("DART IDCAPTURE TARAFINDA MRZRESULT DEGERI $mrzResult");
      try {
       final bool isDone = await _methodChannel.iOSStartIDCaptureNFC(mrzResult);
       return isDone;

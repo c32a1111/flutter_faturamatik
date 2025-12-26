@@ -31,7 +31,7 @@ extension DelegateEventHandler: FaturamatikDelegate {
 }
 extension DelegateEventHandler: mrzInfoDelegate {
    func mrzInfo(_ mrz: FaturamatikVerify.MRZModel?, documentId: String?) {
-    print("STREAM HANDLER GUARD LET ILE MRZ KONTROLU YAPILACAK")
+   
     guard let mrz = mrz else {
       print("GELEN MRZ INFO DATASI EXTENSION: \(mrz) ")
       eventSink?(["type": "error", "data": ["type": "JSONConversion", "errors": ["error_code": "30022", "error_message": "mrz model is nil"]] as [String: Any]])
@@ -40,7 +40,7 @@ extension DelegateEventHandler: mrzInfoDelegate {
 
     let nviData = FaturamatikVerify.NviModel(mrzModel: mrz)
     if nviData != nil {
-      print("NviData nil check yapıldı ve eventSink ile dart tarafına gönderilecek. \(nviData)")
+      
       eventSink?(["type": "mrzInfoDelegate", "data": String(describing: mrz)])
     } else {
       eventSink?(["type": "error", "data": ["type": "JSONConversion", "errors": ["error_code": "30021", "error_message": "Nvi model parsing error"]] as [String: Any]])

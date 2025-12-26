@@ -147,7 +147,7 @@ Future<String?> startMrzRequest() async {
                             if (isDone) {
                         
                               final result = await _idCapture.upload();
-                              print("confirm ekranı result değeriii $result");
+                              debugPrint("confirm ekranı result değeriii $result");
                               final bool isSuccess = result['status'];
                               final String message = result['message'];
                               if (isSuccess) {
@@ -170,7 +170,7 @@ Future<String?> startMrzRequest() async {
                     });
                   } else if (args.source == "poseEstimation") {
                     final result = await _poseEstimation.upload();
-                    print("confirm ekranı result değeriii $result");
+                    
                     final bool isSuccess = result['status'];
                     final String message = result['message'];
 

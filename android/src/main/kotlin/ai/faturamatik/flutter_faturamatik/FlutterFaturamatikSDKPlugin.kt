@@ -62,7 +62,7 @@ class FlutterFaturamatikSDKPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
   }
 
   private fun startKyc(result: MethodChannel.Result) {
-    print("PLUGIN İÇİ start func ");
+    
     val act = activity
     if (act == null) {
       result.error("NO_ACTIVITY", "Plugin is not attached to an Activity.", null)
@@ -84,37 +84,38 @@ class FlutterFaturamatikSDKPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
         config,
         object : KycCallback {
           override fun onSuccess(r: KycResult) {
-            mainHandler.post {
+           
               val payload = mapOf(
-                "type" to "success"
-                // [Inference] KycResult içeriğini bilmiyoruz; istersen buraya alan ekleriz
+                "event" to "kyc_result",
+                "success" to r.success,
+                "reason" to r.reason
               )
               delegateHandler.emit(payload)
               pendingStartResult?.success(payload)
               pendingStartResult = null
-            }
+            
           }
 
           override fun onError(code: String, message: String) {
-            mainHandler.post {
+           
               val payload = mapOf(
-                "type" to "error",
+                "event" to "kyc_error",
                 "code" to code,
                 "message" to message
               )
               delegateHandler.emit(payload)
-              pendingStartResult?.error(code, message, null)
+              pendingStartResult?.success(payload)
               pendingStartResult = null
-            }
+           
           }
 
           override fun onCancelled() {
-            mainHandler.post {
-              val payload = mapOf("type" to "cancelled")
+            
+              val payload = mapOf("event" to "kyc_cancelled")
               delegateHandler.emit(payload)
               pendingStartResult?.success(payload)
               pendingStartResult = null
-            }
+            
           }
         }
       )
@@ -139,5 +140,6 @@ class FlutterFaturamatikSDKPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
 
   override fun onDetachedFromActivity() {
     activity = null
+    pendingStartResult = null
   }
 }

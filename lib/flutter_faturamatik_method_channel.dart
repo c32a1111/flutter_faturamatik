@@ -21,7 +21,7 @@ class MethodChannelFlutterFaturamatik extends FlutterFaturamatikPlatform {
   @override
   Future<bool> startKYC() async {
   try {
-    print("START KYC FUNC İCİ METHOD CHANNEL");
+    
     final bool started = await methodChannel.invokeMethod('startKYC');
     return started;
   } catch (err) {
@@ -186,16 +186,16 @@ Future<Map<String, dynamic>> iOSNFCCaptureWithNviData(NviModel nviModel) async {
     try {
 
      final String? result = await methodChannel.invokeMethod<String>('getMrz');
-      print("gelen result değeri: $result");
+   
       if (result != null) {
         
-        print("Gelen JSON verisi: $result");
+       
       try {
         var resultMap = await json.decode(json.encode(result));
-        print("Method Channel tarafında result map değeri return edildi:  $resultMap");
+        
         return resultMap;
       } catch (e) {
-        print("JSON decoding failed: $e");
+        
         return null;
       }
 

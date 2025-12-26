@@ -38,7 +38,7 @@ class IdCapture {
   if let nvi = nvi {
     do {
       var result = try await module.startNFC(nvi: nvi)
-      print("IDCAPTURE SWIFT TARAFINDA STARTNFC BASARIYLA TAMAMLANDI: \(result)")
+      
       return result
     } catch(let error) {
      return false
@@ -81,10 +81,10 @@ class IdCapture {
 
    //Get mrz fonk buraya
   public func getMrz(result: @escaping FlutterResult) {
-    print("IDCapture tarafında getMRz fonksiyonun içerisine girdi sdk tarafına isteğe çıkacak.")
+   
         self.module.getMrz { mrzData in 
-            print("MRZ DATA PRINT EDILDIGI YER: \(mrzData)")
-                result(mrzData)
+         
+            result(mrzData)
         }
     }
   
