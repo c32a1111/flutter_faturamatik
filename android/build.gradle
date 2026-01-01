@@ -6,7 +6,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        maven { url "https://trialdzowmw.jfrog.io/artifactory/maven-android"}
+        maven { url "https://faturamatik.jfrog.io/artifactory/maven-android"}
     }
 
     dependencies {

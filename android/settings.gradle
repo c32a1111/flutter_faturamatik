@@ -5,7 +5,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven {
-            url = "https://trialdzowmw.jfrog.io/artifactory/maven-android"
+            url = "https://faturamatik.jfrog.io/artifactory/maven-android"
         }
     }
 }
