@@ -87,8 +87,7 @@ class FlutterFaturamatikSDKPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
            
               val payload = mapOf(
                 "event" to "kyc_result",
-                "success" to r.success,
-                "reason" to r.reason
+                "success" to r.success
               )
               delegateHandler.emit(payload)
               pendingStartResult?.success(payload)

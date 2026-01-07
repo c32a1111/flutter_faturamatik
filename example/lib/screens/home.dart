@@ -11,15 +11,34 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _idCapture = FlutterFaturamatik().getIDCapture();
+  final sdk = FlutterFaturamatik();
 
   Future<void> initDelegates() async {
   FlutterFaturamatik().setDelegates();
   FlutterFaturamatik().setEnvironment("deneme");
+
+      sdk.getDelegateStream().listen((event) {
+      final map = Map<String, dynamic>.from(event as Map);
+        print("delegate event recievedDDDD");
+        print("gelen event degeri: $event");
+      switch (map['event']) {
+        case 'kyc_result':
+          final success = map['success'] as bool;
+          break;
+
+        case 'kyc_error':
+          final code = map['code'];      
+          final message = map['message']; 
+          break;
+
+        case 'kyc_cancelled':
+          break;
+      }
+    });
     
-    await for (final delegateEvent in FlutterFaturamatik().getDelegateStream()) {
-      print("delegate event recievedDDDD");
-      print(delegateEvent);
-    }
+    // await for (final delegateEvent in FlutterFaturamatik().getDelegateStream()) {
+    //  
+    // }
   }
 
   @override
