@@ -51,7 +51,7 @@ class FlutterFaturamatikSDKPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
     delegateChannel = null
 
     delegateHandler.clear()
-    pendingStartResult = null
+    
   }
 
   override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
@@ -61,6 +61,70 @@ class FlutterFaturamatikSDKPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
     }
   }
 
+private var isKycRunning = false 
+
+private fun startKyc(result: MethodChannel.Result) {
+  val act = activity
+  if (act == null) {
+    result.error("NO_ACTIVITY", "Plugin is not attached to an Activity.", null)
+    return
+  }
+
+  if (isKycRunning) {
+    result.error("ALREADY_RUNNING", "KYC flow is already running.", null)
+    return
+  }
+
+  isKycRunning = true
+
+  try {
+    val config = KycConfig()
+
+    KycSdk.startLiveness(
+      act,
+      config,
+      object : KycCallback {
+
+        override fun onSuccess(r: KycResult) {
+          isKycRunning = false
+          delegateHandler.emit(
+            mapOf(
+              "event" to "kyc_result",
+              "success" to r.success,
+              "message" to r.message
+            )
+          )
+        }
+
+        override fun onError(code: String, message: String) {
+          isKycRunning = false
+          delegateHandler.emit(
+          mapOf(
+            "event" to "kyc_error",
+            "code" to code,      // string
+            "message" to message
+          )
+        )
+      }
+
+      override fun onCancelled() {
+          isKycRunning = false
+          delegateHandler.emit(mapOf("event" to "kyc_cancelled"))
+        }
+      }
+    )
+
+    
+    result.success(true)
+
+  } catch (t: Throwable) {
+    isKycRunning = false
+    result.error("START_FAILED", t.message, null)
+  }
+}
+
+
+  /* 
   private fun startKyc(result: MethodChannel.Result) {
     
     val act = activity
@@ -95,18 +159,7 @@ class FlutterFaturamatikSDKPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             
           }
 
-          override fun onError(code: String, message: String) {
-           
-              val payload = mapOf(
-                "event" to "kyc_error",
-                "code" to code,
-                "message" to message
-              )
-              delegateHandler.emit(payload)
-              pendingStartResult?.success(payload)
-              pendingStartResult = null
-           
-          }
+       
 
           override fun onCancelled() {
             
@@ -123,7 +176,7 @@ class FlutterFaturamatikSDKPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
       result.error("START_FAILED", t.message, null)
     }
   }
-
+*/
   // ActivityAware
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     activity = binding.activity

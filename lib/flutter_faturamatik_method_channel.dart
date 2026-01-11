@@ -18,16 +18,27 @@ class MethodChannelFlutterFaturamatik extends FlutterFaturamatikPlatform {
 
 
 
-  @override
-  Future<bool> startKYC() async {
-  try {
+  // @override
+  // Future<bool> startKYC() async {
+  // try {
     
-    final bool started = await methodChannel.invokeMethod('startKYC');
-    return started;
-  } catch (err) {
-    rethrow;
-    }
-  }
+  //   final bool started = await methodChannel.invokeMethod('startKYC');
+  //   return started;
+  // } catch (err) {
+  //   rethrow;
+  //   }
+  // }
+
+@override
+Future<bool> startKYC() async {
+  final dynamic res = await methodChannel.invokeMethod('startKYC');
+
+  if (res is bool) return res;
+
+  
+  if (res is Map) return true; 
+  return false;
+}
 
   @override
   Future<dynamic> startIDCapture(int stepID) async {
