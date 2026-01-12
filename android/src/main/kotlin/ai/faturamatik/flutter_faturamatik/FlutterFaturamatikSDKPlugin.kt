@@ -3,6 +3,7 @@ package ai.faturamatik.flutter_faturamatik
 
 import android.app.Activity
 import android.app.Application
+import android.os.Bundle
 import io.flutter.Log
 import android.os.Handler
 import android.os.Looper
