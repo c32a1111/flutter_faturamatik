@@ -33,6 +33,10 @@ abstract class FlutterFaturamatikPlatform extends PlatformInterface {
     throw UnimplementedError('startKYC() has not been implemented.');
   }
 
+  Future<bool> closeKYC() {
+  throw UnimplementedError('closeKYC() has not been implemented.');
+  }
+
   // IDCapture
   Future<dynamic> startIDCapture(int stepID) {
     throw UnimplementedError('startIDCapture() has not been implemented.');

@@ -40,6 +40,11 @@ Future<bool> startKYC() async {
   return false;
 }
 
+Future<bool> closeKYC() async {
+  final dynamic res = await methodChannel.invokeMethod('closeKYC');
+  return res == true;
+}
+
   @override
   Future<dynamic> startIDCapture(int stepID) async {
     try {

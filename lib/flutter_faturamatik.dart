@@ -16,6 +16,10 @@ final MethodChannelFlutterFaturamatik _methodChannel = MethodChannelFlutterFatur
     return _methodChannel.startKYC();
   }
 
+  Future<bool> closeKYC() async {
+    return _methodChannel.closeKYC();
+  }
+
   /// returns [IdCapture] module
   IdCapture getIDCapture() {
     return IdCapture(_methodChannel);

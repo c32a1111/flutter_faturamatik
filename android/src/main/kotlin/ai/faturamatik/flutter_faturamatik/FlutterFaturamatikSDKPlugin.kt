@@ -2,6 +2,7 @@ package ai.faturamatik.flutter_faturamatik
 
 
 import android.app.Activity
+import android.app.Application
 import io.flutter.Log
 import android.os.Handler
 import android.os.Looper
@@ -18,7 +19,8 @@ import com.kyc.sdk.core.KycSdk
 import com.kyc.sdk.core.KycConfig
 import com.kyc.sdk.core.KycCallback
 import com.kyc.sdk.result.KycResult
-
+import java.util.Collections
+import java.util.WeakHashMap
 
 
 class FlutterFaturamatikSDKPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
@@ -29,6 +31,11 @@ class FlutterFaturamatikSDKPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
 
   private var activity: Activity? = null
   private val mainHandler = Handler(Looper.getMainLooper())
+
+  private val kycActivities =
+  Collections.newSetFromMap(WeakHashMap<Activity, Boolean>())
+
+  private var lifecycleCallbacks: Application.ActivityLifecycleCallbacks? = null
 
   // startKYC async -> MethodChannel result’ını bekletmek için
   private var pendingStartResult: MethodChannel.Result? = null
@@ -55,9 +62,13 @@ class FlutterFaturamatikSDKPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
   }
 
   override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
-    when (call.method) {
-      "startKYC" -> startKyc(result)
-      else -> result.notImplemented()
+   when (call.method) {
+    "startKYC" -> startKyc(result)
+    "closeKYC" -> {
+      closeKycUi()
+      result.success(true)
+    }
+    else -> result.notImplemented()
     }
   }
 
@@ -124,62 +135,16 @@ private fun startKyc(result: MethodChannel.Result) {
 }
 
 
-  /* 
-  private fun startKyc(result: MethodChannel.Result) {
-    
-    val act = activity
-    if (act == null) {
-      result.error("NO_ACTIVITY", "Plugin is not attached to an Activity.", null)
-      return
-    }
-
-    if (pendingStartResult != null) {
-      result.error("ALREADY_RUNNING", "KYC flow is already running.", null)
-      return
-    }
-
-    pendingStartResult = result
-
-    try {
-      val config = KycConfig() // [Inference] Config alanlarını bilmiyorsak boş başlatıyoruz
-
-      KycSdk.startLiveness(
-        act,
-        config,
-        object : KycCallback {
-          override fun onSuccess(r: KycResult) {
-           
-              val payload = mapOf(
-                "event" to "kyc_result",
-                "success" to r.success
-              )
-              delegateHandler.emit(payload)
-              pendingStartResult?.success(payload)
-              pendingStartResult = null
-            
-          }
-
-       
-
-          override fun onCancelled() {
-            
-              val payload = mapOf("event" to "kyc_cancelled")
-              delegateHandler.emit(payload)
-              pendingStartResult?.success(payload)
-              pendingStartResult = null
-            
-          }
-        }
-      )
-    } catch (t: Throwable) {
-      pendingStartResult = null
-      result.error("START_FAILED", t.message, null)
-    }
-  }
-*/
   // ActivityAware
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     activity = binding.activity
+    registerKycActivityTracker(binding.activity)
+  }
+
+  override fun onDetachedFromActivity() {
+    activity?.let { unregisterKycActivityTracker(it) }
+    activity = null
+    isKycRunning = false
   }
 
   override fun onDetachedFromActivityForConfigChanges() {
@@ -190,8 +155,65 @@ private fun startKyc(result: MethodChannel.Result) {
     activity = binding.activity
   }
 
-  override fun onDetachedFromActivity() {
-    activity = null
-    pendingStartResult = null
+  private fun isKycSdkActivity(a: Activity): Boolean {
+  val name = a.javaClass.name
+  return name.startsWith("com.kyc.sdk.") // gerekirse değiştir
   }
+
+
+  private fun registerKycActivityTracker(hostActivity: Activity) {
+  if (lifecycleCallbacks != null) return
+
+  val app = hostActivity.application
+
+  lifecycleCallbacks = object : Application.ActivityLifecycleCallbacks {
+    override fun onActivityCreated(a: Activity, savedInstanceState: Bundle?) {
+      if (isKycSdkActivity(a)) kycActivities.add(a)
+    }
+
+    override fun onActivityResumed(a: Activity) {
+      if (isKycSdkActivity(a)) kycActivities.add(a)
+    }
+
+    override fun onActivityDestroyed(a: Activity) {
+      kycActivities.remove(a)
+    }
+
+    override fun onActivityStarted(a: Activity) {}
+    override fun onActivityPaused(a: Activity) {}
+    override fun onActivityStopped(a: Activity) {}
+    override fun onActivitySaveInstanceState(a: Activity, outState: Bundle) {}
+  }
+
+  app.registerActivityLifecycleCallbacks(lifecycleCallbacks)
+}
+
+private fun unregisterKycActivityTracker(hostActivity: Activity) {
+  val cb = lifecycleCallbacks ?: return
+  hostActivity.application.unregisterActivityLifecycleCallbacks(cb)
+  lifecycleCallbacks = null
+  kycActivities.clear()
+}
+
+private fun closeKycUi() {
+  mainHandler.post {
+    try {
+      val cls = Class.forName("com.kyc.sdk.session.KycSession")
+      cls.getMethod("clear").invoke(null)
+    } catch (_: Throwable) {}
+
+    
+    val snapshot = kycActivities.toList()
+    snapshot.forEach { a ->
+      try {
+        if (!a.isFinishing && !a.isDestroyed) a.finish()
+      } catch (_: Throwable) {}
+    }
+    kycActivities.clear()
+
+    isKycRunning = false
+  }
+}
+
+
 }
