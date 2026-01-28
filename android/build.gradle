@@ -1,41 +1,27 @@
 group 'faturamatik.flutter_android_sdk'
 version '1.0-SNAPSHOT'
 
-buildscript {
-    ext.kotlin_version = '1.8.20'
-    repositories {
-        google()
-        mavenCentral()
-        maven { url "https://faturamatik.jfrog.io/artifactory/maven-android"}
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
 }
-
-rootProject.allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 35
+    namespace 'faturamatik_flutter_android'
+    compileSdk 35
 
-    namespace = 'faturamatik_flutter_android'
+    defaultConfig {
+        minSdk 23
+    }
+
+    buildFeatures {
+        dataBinding true
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-
-    dataBinding { enabled true }
 
     kotlinOptions {
         jvmTarget = '17'
@@ -45,13 +31,10 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
-    defaultConfig {
-        minSdkVersion 23
-    }
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.oda.kyc:android-sdk:1.9.2'
+    implementation 'com.oda.kyc:android-sdk:1.9.3'
     implementation "androidx.appcompat:appcompat:1.6.1"
 }
+
