@@ -24,14 +24,18 @@ class _HomeScreenState extends State<HomeScreen> {
       switch (map['event']) {
         case 'kyc_result':
           final success = map['success'] as bool;
+          sdk.closeKYC();
           break;
 
         case 'kyc_error':
           final code = map['code'];      
           final message = map['message']; 
+          sdk.closeKYC();
           break;
+          
 
         case 'kyc_cancelled':
+        sdk.closeKYC();
           break;
       }
     });
