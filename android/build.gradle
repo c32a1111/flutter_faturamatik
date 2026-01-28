@@ -52,6 +52,6 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.oda.kyc:android-sdk:1.8.0'
+    implementation 'com.oda.kyc:android-sdk:1.9.0'
     implementation "androidx.appcompat:appcompat:1.6.1"
 }
