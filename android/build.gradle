@@ -1,36 +1,25 @@
 group 'faturamatik.flutter_android_sdk'
 version '1.0-SNAPSHOT'
 
-plugins {
-    id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
-}
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
-    namespace 'faturamatik_flutter_android'
-    compileSdk 35
+    compileSdkVersion 35
+    namespace = 'faturamatik_flutter_android'
 
-    defaultConfig {
-        minSdk 23
-    }
-
-    buildFeatures {
-        dataBinding true
-    }
+    defaultConfig { minSdkVersion 23 }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = '17'
-    }
+    dataBinding { enabled true }
 
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
+    kotlinOptions { jvmTarget = '17' }
 
+    sourceSets { main.java.srcDirs += 'src/main/kotlin' }
 }
 
 dependencies {
